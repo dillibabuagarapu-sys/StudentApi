@@ -100,7 +100,7 @@ namespace StudentApi.Controllers
             await _context.SaveChangesAsync();
 
 
-            return NoContent();
+            return Ok(new { message = "Student deleted successfully!" });
         }
     }
 }
