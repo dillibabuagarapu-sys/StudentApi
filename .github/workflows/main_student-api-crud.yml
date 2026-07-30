@@ -8,6 +8,8 @@ on:
     branches:
       - main
   workflow_dispatch:
+
+# గ్లోబల్ లెవెల్‌లో ఒకేసారి పర్మిషన్స్ ఇస్తున్నాం, దీనివల్ల OIDC టోకెన్ కరెక్ట్‌గా జనరేట్ అవుతుంది
 permissions:
   id-token: write
   contents: read
@@ -15,9 +17,6 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
-    permissions:
-      contents: read #This is required for actions/checkout
-
     steps:
       - uses: actions/checkout@v4
 
@@ -41,10 +40,6 @@ jobs:
   deploy:
     runs-on: windows-latest
     needs: build
-    permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
-
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
@@ -65,4 +60,3 @@ jobs:
           app-name: 'student-api-crud'
           slot-name: 'Production'
           package: .
-          
