@@ -18,13 +18,19 @@ namespace StudentApi.Controllers
         }
 
 
-        // GET ALL STUDENTS
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
+        public async Task<IActionResult> GetStudents()
         {
-            return await _context.Students.ToListAsync();
+            try
+            {
+                var data = await _context.Students.ToListAsync();
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return Ok("ERROR: " + ex.Message);
+            }
         }
-
 
 
         // GET STUDENT BY ID
